@@ -76,12 +76,15 @@
         html[lang="en"] .vi { display: none; }
         html[lang="en"] .en { display: inline; }
         /* Block-level */
-        div.vi, p.vi, li.vi, td.vi, th.vi { display: unset; }
+        div.vi, p.vi { display: block; }
+        li.vi { display: list-item; }
+        td.vi, th.vi { display: table-cell; }
         div.en, p.en, li.en, td.en, th.en { display: none; }
-        html[lang="en"] div.vi, html[lang="en"] p.vi, html[lang="en"] li.vi,
-        html[lang="en"] td.vi, html[lang="en"] th.vi { display: none; }
-        html[lang="en"] div.en, html[lang="en"] p.en, html[lang="en"] li.en,
-        html[lang="en"] td.en, html[lang="en"] th.en { display: unset; }
+        html[lang="en"] div.vi, html[lang="en"] p.vi,
+        html[lang="en"] li.vi, html[lang="en"] td.vi, html[lang="en"] th.vi { display: none; }
+        html[lang="en"] div.en, html[lang="en"] p.en { display: block; }
+        html[lang="en"] li.en { display: list-item; }
+        html[lang="en"] td.en, html[lang="en"] th.en { display: table-cell; }
         tr.vi { display: table-row; }
         tr.en { display: none; }
         html[lang="en"] tr.vi { display: none; }
