@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#05080F">
+    <title>Project Trinity — Digital Nation Blueprint</title>
+    <meta name="description" content="Báo Cáo Phân Tích Chuyên Sâu Chiến Lược: Hệ Sinh Thái Quốc Gia Kỹ Thuật Số — Project Trinity">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --void: #05080F;
+            --abyss: #0A0F1A;
+            --navy: #0C1425;
+            --navy-mid: #111B30;
+            --navy-light: #1A2744;
+            --slate: #2A3A5C;
+            --gold-dim: #8B7235;
+            --gold: #C9A84C;
+            --gold-bright: #E5C76B;
+            --gold-glow: rgba(201, 168, 76, 0.15);
+            --emerald-dim: #0A6B47;
+            --emerald: #10B981;
+            --emerald-bright: #34D399;
+            --emerald-glow: rgba(16, 185, 129, 0.12);
+            --cyan-dim: #0A7E94;
+            --cyan: #00D4FF;
+            --cyan-bright: #67EDFF;
+            --cyan-glow: rgba(0, 212, 255, 0.10);
+            --white: #FFFFFF;
+            --off-white: #E8ECF4;
+            --gray-200: #CBD5E1;
+            --gray-300: #94A3B8;
+            --gray-500: #64748B;
+            --gray-700: #334155;
+            --border: rgba(201, 168, 76, 0.15);
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
+            --shadow-md: 0 8px 32px rgba(0,0,0,0.4);
+            --shadow-lg: 0 16px 64px rgba(0,0,0,0.5);
+            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+            --dur: 0.5s;
+            --page-px: 20px;
+            --section-py: 80px;
+            --sat: env(safe-area-inset-top, 0px);
+            --sab: env(safe-area-inset-bottom, 0px);
+        }
+        @media (min-width: 768px) {
+            :root { --page-px: 48px; --section-py: 120px; }
+        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; font-size: 16px; -webkit-text-size-adjust: 100%; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--void);
+            color: var(--off-white);
+            line-height: 1.75;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            padding-top: var(--sat);
+            padding-bottom: var(--sab);
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', 'Georgia', serif;
+            line-height: 1.25;
+            letter-spacing: -0.01em;
+        }
+
+        /* ── Language Toggle System ── */
+        .vi { display: inline; }
+        .en { display: none; }
+        html[lang="en"] .vi { display: none; }
+        html[lang="en"] .en { display: inline; }
+        /* Block-level */
+        div.vi, p.vi, li.vi, td.vi, th.vi { display: unset; }
+        div.en, p.en, li.en, td.en, th.en { display: none; }
+        html[lang="en"] div.vi, html[lang="en"] p.vi, html[lang="en"] li.vi,
+        html[lang="en"] td.vi, html[lang="en"] th.vi { display: none; }
+        html[lang="en"] div.en, html[lang="en"] p.en, html[lang="en"] li.en,
+        html[lang="en"] td.en, html[lang="en"] th.en { display: unset; }
+        tr.vi { display: table-row; }
+        tr.en { display: none; }
+        html[lang="en"] tr.vi { display: none; }
+        html[lang="en"] tr.en { display: table-row; }
+
+        /* ═══ NAVIGATION ═══ */
+        .nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            background: rgba(5, 8, 15, 0.82);
+            backdrop-filter: blur(20px) saturate(1.4);
+            -webkit-backdrop-filter: blur(20px) saturate(1.4);
+            border-bottom: 1px solid var(--border);
+            transition: transform 0.4s var(--ease-out);
+            padding-top: var(--sat);
+        }
+        .nav.hidden { transform: translateY(-100%); }
+        .nav-inner {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 var(--page-px); height: 56px;
+        }
+        @media (min-width: 768px) { .nav-inner { height: 64px; } }
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-weight: 800; font-size: 1.05rem; color: var(--gold);
+            letter-spacing: 3px; text-transform: uppercase; flex-shrink: 0;
+        }
+        .nav-links { display: none; gap: 4px; }
+        @media (min-width: 900px) { .nav-links { display: flex; } }
+        .nav-links a {
+            color: var(--gray-300); text-decoration: none;
+            font-size: 0.72rem; font-weight: 600; letter-spacing: 1.5px;
+            text-transform: uppercase; padding: 8px 14px; border-radius: 6px;
+            transition: all 0.3s var(--ease-out); white-space: nowrap;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--gold); background: var(--gold-glow); }
+        .nav-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+        .lang-toggle {
+            display: flex; align-items: center;
+            background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px; overflow: hidden; height: 34px;
+        }
+        .lang-btn {
+            background: none; border: none; color: var(--gray-500);
+            font-family: 'Inter', sans-serif; font-size: 0.7rem; font-weight: 700;
+            letter-spacing: 1px; padding: 0 12px; height: 100%;
+            cursor: pointer; transition: all 0.3s var(--ease-out); text-transform: uppercase;
+        }
+        .lang-btn.active { background: var(--gold); color: var(--void); }
+        .lang-btn:hover:not(.active) { color: var(--off-white); }
+        .hamburger {
+            display: flex; flex-direction: column; gap: 5px;
+            background: none; border: none; cursor: pointer; padding: 8px; margin-right: -8px;
+        }
+        @media (min-width: 900px) { .hamburger { display: none; } }
+        .hamburger span {
+            display: block; width: 20px; height: 2px; background: var(--gray-300);
+            border-radius: 1px; transition: all 0.3s var(--ease-out);
+        }
+        .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+        .mobile-drawer {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 999;
+            background: rgba(5, 8, 15, 0.96);
+            backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+            opacity: 0; visibility: hidden; transition: all 0.4s var(--ease-out);
+        }
+        .mobile-drawer.open { opacity: 1; visibility: visible; }
+        .mobile-drawer a {
+            color: var(--gray-300); text-decoration: none;
+            font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 600;
+            padding: 12px 32px; border-radius: 8px; transition: all 0.3s var(--ease-out);
+            transform: translateY(20px); opacity: 0;
+        }
+        .mobile-drawer.open a { transform: translateY(0); opacity: 1; }
+        .mobile-drawer.open a:nth-child(1) { transition-delay: 0.05s; }
+        .mobile-drawer.open a:nth-child(2) { transition-delay: 0.1s; }
+        .mobile-drawer.open a:nth-child(3) { transition-delay: 0.15s; }
+        .mobile-drawer.open a:nth-child(4) { transition-delay: 0.2s; }
+        .mobile-drawer.open a:nth-child(5) { transition-delay: 0.25s; }
+        .mobile-drawer a:hover, .mobile-drawer a.active { color: var(--gold); background: var(--gold-glow); }
+
+        /* ═══ HERO ═══ */
+        .hero {
+            position: relative; min-height: 100svh;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; padding: calc(80px + var(--sat)) var(--page-px) 60px; overflow: hidden;
+        }
+        .hero-bg {
+            position: absolute; inset: 0;
+            background:
+                radial-gradient(ellipse 80% 50% at 50% 40%, rgba(201, 168, 76, 0.06), transparent 70%),
+                radial-gradient(ellipse 50% 40% at 30% 60%, rgba(16, 185, 129, 0.04), transparent 60%),
+                radial-gradient(ellipse 50% 40% at 70% 70%, rgba(0, 212, 255, 0.03), transparent 60%),
+                var(--void);
+            z-index: 0;
+        }
+        .hero-canvas { position: absolute; inset: 0; z-index: 1; opacity: 0.35; }
+        .hero-content { position: relative; z-index: 2; max-width: 800px; width: 100%; }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(201, 168, 76, 0.08); border: 1px solid rgba(201, 168, 76, 0.25);
+            padding: 6px 16px; border-radius: 100px;
+            font-size: 0.65rem; font-weight: 700; letter-spacing: 3px;
+            text-transform: uppercase; color: var(--gold); margin-bottom: 28px;
+            animation: fadeUp 0.8s var(--ease-out) 0.2s both;
+        }
+        .hero-badge::before {
+            content: ''; width: 6px; height: 6px; border-radius: 50%;
+            background: var(--gold); animation: pulse-dot 2s ease infinite;
+        }
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.3; transform: scale(0.5); }
+        }
+        .hero h1 {
+            font-size: clamp(2rem, 7vw, 4.5rem); font-weight: 900; color: var(--white);
+            margin-bottom: 12px; animation: fadeUp 0.8s var(--ease-out) 0.35s both;
+        }
+        .hero h1 .gold {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-bright) 50%, var(--gold) 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text; animation: shimmer 4s linear infinite;
+        }
+        @keyframes shimmer { to { background-position: 200% center; } }
+        .hero-sub {
+            font-size: clamp(0.75rem, 2.5vw, 1.1rem); font-weight: 400; color: var(--gray-300);
+            letter-spacing: 4px; text-transform: uppercase; margin-bottom: 36px;
+            animation: fadeUp 0.8s var(--ease-out) 0.5s both;
+        }
+        @media (min-width: 768px) { .hero-sub { letter-spacing: 6px; } }
+        .hero-quote {
+            max-width: 680px; margin: 0 auto 40px;
+            font-size: clamp(0.9rem, 2.5vw, 1.05rem); font-style: italic;
+            color: var(--gray-300); line-height: 1.85;
+            padding: 24px 24px 24px 28px; border-left: 2px solid var(--gold);
+            background: rgba(201, 168, 76, 0.04); border-radius: 0 10px 10px 0;
+            text-align: left; animation: fadeUp 0.8s var(--ease-out) 0.65s both;
+        }
+        .hero-quote strong { color: var(--gold-bright); font-style: normal; }
+        .scroll-hint {
+            position: absolute; bottom: max(24px, var(--sab)); left: 50%; transform: translateX(-50%);
+            z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 6px;
+            animation: fadeUp 0.8s var(--ease-out) 1s both;
+        }
+        .scroll-hint span {
+            font-size: 0.6rem; font-weight: 600; letter-spacing: 3px;
+            text-transform: uppercase; color: var(--gray-500);
+        }
+        .scroll-hint-line {
+            width: 1px; height: 32px;
+            background: linear-gradient(to bottom, var(--gold), transparent);
+            animation: scroll-pulse 2s ease infinite;
+        }
+        @keyframes scroll-pulse {
+            0%, 100% { opacity: 1; transform: scaleY(1); }
+            50% { opacity: 0.2; transform: scaleY(0.4); transform-origin: top; }
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(28px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ═══ SECTIONS ═══ */
+        .sec {
+            position: relative; padding: var(--section-py) var(--page-px);
+        }
+        .sec::before { content: ''; position: absolute; inset: 0; z-index: 0; }
+        .sec-inner { position: relative; z-index: 1; max-width: 1120px; margin: 0 auto; }
+        .sec-header { text-align: center; margin-bottom: 48px; }
+        @media (min-width: 768px) { .sec-header { margin-bottom: 64px; } }
+        .sec-label {
+            display: inline-block; font-size: 0.65rem; font-weight: 700;
+            letter-spacing: 4px; text-transform: uppercase; color: var(--gold);
+            margin-bottom: 14px; position: relative;
+        }
+        .sec-label::before, .sec-label::after {
+            content: ''; position: absolute; top: 50%; width: 28px; height: 1px; background: var(--gold-dim);
+        }
+        @media (min-width: 768px) { .sec-label::before, .sec-label::after { width: 40px; } }
+        .sec-label::before { right: calc(100% + 12px); }
+        .sec-label::after { left: calc(100% + 12px); }
+        .sec-header h2 {
+            font-size: clamp(1.6rem, 4vw, 2.8rem); font-weight: 800; color: var(--white); margin-bottom: 14px;
+        }
+        .sec-header p {
+            font-size: clamp(0.9rem, 2.2vw, 1.02rem); color: var(--gray-300);
+            max-width: 600px; margin: 0 auto;
+        }
+        .divider {
+            width: 100%; height: 1px;
+            background: linear-gradient(90deg, transparent 5%, var(--border) 50%, transparent 95%);
+        }
+
+        /* ═══ SYNERGY ═══ */
+        .synergy-bg::before { background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,168,76,0.04), transparent 70%), var(--abyss); }
+        .synergy-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+        @media (min-width: 768px) { .synergy-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
+        .syn-card {
+            background: var(--navy); border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 14px; padding: 28px 22px; text-align: center;
+            transition: all 0.4s var(--ease-out); position: relative; overflow: hidden;
+        }
+        .syn-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0;
+            height: 3px; border-radius: 14px 14px 0 0;
+        }
+        @media (hover: hover) {
+            .syn-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: rgba(255,255,255,0.1); }
+        }
+        .syn-card.emerald::before { background: linear-gradient(90deg, var(--emerald), var(--emerald-bright)); }
+        .syn-card.cyan::before { background: linear-gradient(90deg, var(--cyan), var(--cyan-bright)); }
+        .syn-card.gold::before { background: linear-gradient(90deg, var(--gold), var(--gold-bright)); }
+        .syn-icon {
+            width: 50px; height: 50px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 16px; font-size: 1.4rem;
+        }
+        .syn-card.emerald .syn-icon { background: var(--emerald-glow); }
+        .syn-card.cyan .syn-icon { background: var(--cyan-glow); }
+        .syn-card.gold .syn-icon { background: var(--gold-glow); }
+        .syn-card .tag {
+            font-family: 'Inter', sans-serif; font-size: 0.65rem; font-weight: 700;
+            letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px;
+        }
+        .syn-card.emerald .tag { color: var(--emerald); }
+        .syn-card.cyan .tag { color: var(--cyan); }
+        .syn-card.gold .tag { color: var(--gold); }
+        .syn-card h3 { font-size: 1.15rem; font-weight: 700; color: var(--white); margin-bottom: 10px; }
+        .syn-card p { font-size: 0.88rem; color: var(--gray-300); line-height: 1.7; }
+        .loop-indicator { display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 28px; }
+        .loop-line { height: 1px; width: 60px; background: linear-gradient(90deg, var(--emerald-dim), var(--gold-dim)); }
+        .loop-sym {
+            width: 36px; height: 36px; border-radius: 50%;
+            background: var(--navy-mid); border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.85rem; color: var(--gold); font-weight: 800;
+        }
+
+        /* ═══ PILLAR ═══ */
+        #pillar-a::before { background: radial-gradient(ellipse 70% 50% at 80% 20%, rgba(201,168,76,0.04), transparent 60%), var(--void); }
+        #pillar-b::before { background: radial-gradient(ellipse 70% 50% at 20% 30%, rgba(16,185,129,0.04), transparent 60%), var(--abyss); }
+        #pillar-c::before { background: radial-gradient(ellipse 70% 50% at 80% 40%, rgba(0,212,255,0.04), transparent 60%), var(--void); }
+        .p-header {
+            display: grid; grid-template-columns: 1fr; gap: 24px;
+            align-items: center; margin-bottom: 48px;
+        }
+        @media (min-width: 768px) { .p-header { grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 64px; } }
+        .p-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-size: 0.6rem; font-weight: 700; letter-spacing: 2.5px;
+            text-transform: uppercase; padding: 5px 14px; border-radius: 100px; margin-bottom: 16px;
+        }
+        .pa .p-badge { color: var(--gold); background: var(--gold-glow); border: 1px solid rgba(201,168,76,0.2); }
+        .pb .p-badge { color: var(--emerald); background: var(--emerald-glow); border: 1px solid rgba(16,185,129,0.2); }
+        .pc .p-badge { color: var(--cyan); background: var(--cyan-glow); border: 1px solid rgba(0,212,255,0.2); }
+        .p-header h2 {
+            font-size: clamp(1.6rem, 4.5vw, 2.6rem); font-weight: 800; color: var(--white); margin-bottom: 6px;
+        }
+        .p-sub {
+            font-size: 0.78rem; font-weight: 600; letter-spacing: 3px;
+            text-transform: uppercase; margin-bottom: 16px;
+        }
+        .pa .p-sub { color: var(--gold-dim); }
+        .pb .p-sub { color: var(--emerald-dim); }
+        .pc .p-sub { color: var(--cyan-dim); }
+        .p-conf { color: var(--gray-500); font-size: 0.85rem; }
+        .p-hero-img {
+            width: 100%; height: 200px; object-fit: cover; border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.06); order: -1;
+        }
+        @media (min-width: 768px) { .p-hero-img { height: 300px; order: unset; } }
+        .p-narrative {
+            margin-bottom: 48px; padding: 24px; border-radius: 12px;
+            font-style: italic; font-size: clamp(0.9rem, 2.2vw, 1.02rem);
+            line-height: 1.9; color: var(--gray-300);
+        }
+        @media (min-width: 768px) { .p-narrative { padding: 28px 36px; } }
+        .pa .p-narrative { background: rgba(201,168,76,0.04); border: 1px solid rgba(201,168,76,0.12); border-left: 3px solid var(--gold); }
+        .pa .p-narrative strong { color: var(--gold-bright); font-style: normal; }
+        .pb .p-narrative { background: rgba(16,185,129,0.04); border: 1px solid rgba(16,185,129,0.12); border-left: 3px solid var(--emerald); }
+        .pb .p-narrative strong { color: var(--emerald-bright); font-style: normal; }
+        .pc .p-narrative { background: rgba(0,212,255,0.04); border: 1px solid rgba(0,212,255,0.12); border-left: 3px solid var(--cyan); }
+        .pc .p-narrative strong { color: var(--cyan-bright); font-style: normal; }
+        .blk { margin-bottom: 56px; }
+        @media (min-width: 768px) { .blk { margin-bottom: 72px; } }
+        .blk-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 14px; }
+        .blk-num { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 900; opacity: 0.15; flex-shrink: 0; }
+        .blk-head h3 { font-size: clamp(1.15rem, 3vw, 1.4rem); font-weight: 700; color: var(--white); }
+        .blk-desc {
+            font-size: 0.93rem; color: var(--gray-300); margin-bottom: 28px; max-width: 760px;
+        }
+        .blk-desc strong { font-style: normal; }
+        .pa .blk-desc strong { color: var(--gold); }
+        .pb .blk-desc strong { color: var(--emerald); }
+        .pc .blk-desc strong { color: var(--cyan); }
+        .steps { display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: 32px; }
+        @media (min-width: 768px) { .steps { grid-template-columns: repeat(3, 1fr); gap: 20px; } }
+        .step {
+            background: var(--navy); border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 14px; padding: 24px 20px; position: relative; overflow: hidden;
+            transition: all 0.4s var(--ease-out);
+        }
+        @media (min-width: 768px) { .step { padding: 28px 22px; } }
+        .step:active { transform: scale(0.98); }
+        @media (hover: hover) {
+            .step:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: rgba(255,255,255,0.1); }
+        }
+        .step::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; border-radius: 14px 14px 0 0;
+        }
+        .pa .step::before { background: linear-gradient(90deg, var(--gold), var(--gold-bright)); }
+        .pb .step::before { background: linear-gradient(90deg, var(--emerald), var(--emerald-bright)); }
+        .pc .step::before { background: linear-gradient(90deg, var(--cyan), var(--cyan-bright)); }
+        .step-num {
+            font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900;
+            line-height: 1; margin-bottom: 12px;
+        }
+        .pa .step-num { color: var(--gold); opacity: 0.25; }
+        .pb .step-num { color: var(--emerald); opacity: 0.25; }
+        .pc .step-num { color: var(--cyan); opacity: 0.25; }
+        .step h4 { font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 700; color: var(--white); margin-bottom: 10px; }
+        .step p { font-size: 0.87rem; color: var(--gray-300); line-height: 1.7; }
+        .metrics { display: grid; grid-template-columns: 1fr; gap: 14px; margin-bottom: 28px; }
+        @media (min-width: 480px) { .metrics { grid-template-columns: repeat(3, 1fr); gap: 16px; } }
+        .met {
+            background: var(--navy); border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 14px; padding: 22px 18px; text-align: center;
+            position: relative; overflow: hidden;
+        }
+        .met::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; }
+        .pa .met::after { background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+        .pb .met::after { background: linear-gradient(90deg, transparent, var(--emerald), transparent); }
+        .pc .met::after { background: linear-gradient(90deg, transparent, var(--cyan), transparent); }
+        .met-val {
+            font-family: 'Playfair Display', serif; font-size: clamp(1.4rem, 4vw, 2rem);
+            font-weight: 900; margin-bottom: 4px;
+        }
+        .pa .met-val { color: var(--gold); }
+        .pb .met-val { color: var(--emerald); }
+        .pc .met-val { color: var(--cyan); }
+        .met-lbl {
+            font-size: 0.68rem; font-weight: 600; letter-spacing: 1px;
+            text-transform: uppercase; color: var(--gray-500);
+        }
+        .tbl-wrap {
+            overflow-x: auto; -webkit-overflow-scrolling: touch;
+            margin-bottom: 32px; border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.06); background: var(--navy);
+        }
+        table { width: 100%; border-collapse: collapse; min-width: 560px; }
+        th {
+            font-family: 'Inter', sans-serif; font-size: 0.68rem; font-weight: 700;
+            letter-spacing: 1.5px; text-transform: uppercase; text-align: left;
+            padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.08); white-space: nowrap;
+        }
+        .pa th { color: var(--gold); background: rgba(201,168,76,0.06); }
+        .pb th { color: var(--emerald); background: rgba(16,185,129,0.06); }
+        .pc th { color: var(--cyan); background: rgba(0,212,255,0.06); }
+        .glossary-t th { color: var(--gold); background: rgba(201,168,76,0.06); }
+        td {
+            padding: 14px 16px; font-size: 0.88rem; color: var(--gray-300);
+            border-bottom: 1px solid rgba(255,255,255,0.04); vertical-align: top;
+        }
+        td strong { color: var(--white); }
+        tr:last-child td { border-bottom: none; }
+        .tbl-wrap::after {
+            content: '← cuộn ngang →';
+            display: block; text-align: center; font-size: 0.6rem; font-weight: 600;
+            letter-spacing: 2px; text-transform: uppercase; color: var(--gray-500); padding: 8px;
+        }
+        html[lang="en"] .tbl-wrap::after { content: '← scroll →'; }
+        @media (min-width: 768px) { .tbl-wrap::after { display: none; } }
+        .roadmap { padding-left: 0; list-style: none; }
+        .roadmap li {
+            position: relative; padding: 18px 18px 18px 44px; margin-bottom: 10px;
+            border-radius: 12px; background: var(--navy); border: 1px solid rgba(255,255,255,0.04);
+            font-size: 0.92rem; color: var(--gray-300); line-height: 1.75;
+            transition: all 0.3s var(--ease-out);
+        }
+        .roadmap li:active { transform: scale(0.98); }
+        @media (hover: hover) { .roadmap li:hover { border-color: rgba(255,255,255,0.08); transform: translateX(4px); } }
+        .roadmap li::before {
+            content: ''; position: absolute; left: 18px; top: 24px;
+            width: 9px; height: 9px; border-radius: 50%;
+        }
+        .pa .roadmap li::before { background: var(--gold); box-shadow: 0 0 10px rgba(201,168,76,0.3); }
+        .pb .roadmap li::before { background: var(--emerald); box-shadow: 0 0 10px rgba(16,185,129,0.3); }
+        .pc .roadmap li::before { background: var(--cyan); box-shadow: 0 0 10px rgba(0,212,255,0.3); }
+        .roadmap li strong { color: var(--white); }
+
+        #glossary { background: var(--abyss); }
+        #glossary::before { display: none; }
+        .footer {
+            padding: 32px var(--page-px) calc(32px + var(--sab));
+            text-align: center; border-top: 1px solid var(--border); background: var(--void);
+        }
+        .footer p { font-size: 0.7rem; color: var(--gray-500); letter-spacing: 1px; }
+        .reveal {
+            opacity: 0; transform: translateY(28px);
+            transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+        }
+        .reveal.vis { opacity: 1; transform: translateY(0); }
+        .rd1 { transition-delay: 0.08s; }
+        .rd2 { transition-delay: 0.16s; }
+        .rd3 { transition-delay: 0.24s; }
+        @media print {
+            body { background: white; color: #1a1a1a; }
+            .nav, .hero-canvas, .scroll-hint, .mobile-drawer { display: none !important; }
+            .hero { min-height: auto; padding: 40px 20px; }
+            .hero h1 .gold { -webkit-text-fill-color: #0C1425; }
+            .sec { padding: 40px 20px; }
+            .step, .met, .syn-card { border: 1px solid #ddd; background: #fafafa; }
+            .p-narrative { border-color: #ccc; background: #f8f8f8; }
+            th { background: #0C1425 !important; color: white !important; }
+            td { color: #333; }
+            .reveal { opacity: 1 !important; transform: none !important; }
+            @page { size: A4; margin: 15mm; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ═══ NAV ═══ -->
+    <nav class="nav" id="navbar">
+        <div class="nav-inner">
+            <span class="nav-logo">Trinity</span>
+            <div class="nav-links">
+                <a href="#overview" class="active"><span class="vi">Tổng Quan</span><span class="en">Overview</span></a>
+                <a href="#pillar-a"><span class="vi">Trụ Cột A</span><span class="en">Pillar A</span></a>
+                <a href="#pillar-b"><span class="vi">Trụ Cột B</span><span class="en">Pillar B</span></a>
+                <a href="#pillar-c"><span class="vi">Trụ Cột C</span><span class="en">Pillar C</span></a>
+                <a href="#glossary"><span class="vi">Phụ Lục</span><span class="en">Glossary</span></a>
+            </div>
+            <div class="nav-right">
+                <div class="lang-toggle">
+                    <button class="lang-btn active" id="btnVI" onclick="setLang('vi')">VI</button>
+                    <button class="lang-btn" id="btnEN" onclick="setLang('en')">EN</button>
+                </div>
+                <button class="hamburger" id="burger" aria-label="Menu" onclick="toggleDrawer()">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+    <div class="mobile-drawer" id="drawer">
+        <a href="#overview" onclick="closeDrawer()"><span class="vi">Tổng Quan</span><span class="en">Overview</span></a>
+        <a href="#pillar-a" onclick="closeDrawer()"><span class="vi">Trụ Cột A</span><span class="en">Pillar A</span></a>
+        <a href="#pillar-b" onclick="closeDrawer()"><span class="vi">Trụ Cột B</span><span class="en">Pillar B</span></a>
+        <a href="#pillar-c" onclick="closeDrawer()"><span class="vi">Trụ Cột C</span><span class="en">Pillar C</span></a>
+        <a href="#glossary" onclick="closeDrawer()"><span class="vi">Phụ Lục</span><span class="en">Glossary</span></a>
+    </div>
+
+    <!-- ═══ HERO ═══ -->
+    <section class="hero" id="overview">
+        <div class="hero-bg"></div>
+        <canvas class="hero-canvas" id="constellation"></canvas>
+        <div class="hero-content">
+            <div class="hero-badge">Project Trinity</div>
+            <h1>
+                <span class="vi">Hệ Sinh Thái<br><span class="gold">Quốc Gia Kỹ Thuật Số</span></span>
+                <span class="en">The<br><span class="gold">Digital Nation</span> Ecosystem</span>
+            </h1>
+            <p class="hero-sub">
+                <span class="vi">Bản Cáo Bạch Chiến Lược Trọng Tâm</span>
+                <span class="en">Strategic Executive Whitepaper</span>
+            </p>
+            <div class="hero-quote">
+                <span class="vi">"Project Trinity không xây dựng các công ty rời rạc. Chúng ta kiến tạo một <strong>Quốc gia Kỹ thuật số</strong> tự chủ, khép kín để giải quyết <strong>Bộ ba Thách thức</strong> của toàn cầu: Năng lượng — Bảo mật — Trí tuệ."</span>
+                <span class="en">"Project Trinity does not build isolated companies. We are architecting a self-sovereign, closed-loop <strong>Digital Nation</strong> to solve the global <strong>Digital Trilemma</strong>: Energy — Security — Intelligence."</span>
+            </div>
+        </div>
+        <div class="scroll-hint">
+            <span class="vi">Khám Phá</span><span class="en">Explore</span>
+            <div class="scroll-hint-line"></div>
+        </div>
+    </section>
+
+    <!-- ═══ SYNERGY ═══ -->
+    <section class="sec synergy-bg">
+        <div class="sec-inner">
+            <div class="sec-header reveal">
+                <span class="sec-label">
+                    <span class="vi">Hệ Sinh Thái</span><span class="en">The Ecosystem</span>
+                </span>
+                <h2>
+                    <span class="vi">Sự Kết Dính Của Hệ Sinh Thái</span>
+                    <span class="en">Ecosystem Synergy</span>
+                </h2>
+                <p>
+                    <span class="vi">Sức mạnh cốt lõi nằm ở vòng lặp khép kín giữa ba trụ cột, bổ trợ và bảo vệ lẫn nhau tạo ra cỗ máy tăng trưởng bền vững.</span>
+                    <span class="en">The core strength lies in the closed-loop flywheel between three pillars, each reinforcing and protecting the others to create a sustainable growth engine.</span>
+                </p>
+            </div>
+            <div class="synergy-grid">
+                <div class="syn-card emerald reveal rd1">
+                    <div class="syn-icon">⚡</div>
+                    <div class="tag"><span class="vi">Nền tảng Vật lý</span><span class="en">Physical Foundation</span></div>
+                    <h3><span class="vi">Trụ Cột B: Năng lượng BESS</span><span class="en">Pillar B: BESS Energy</span></h3>
+                    <p>
+                        <span class="vi">Cung cấp nguồn điện xanh, chi phí cực thấp và hoàn toàn độc lập để duy trì vận hành liên tục cho các cụm máy chủ dữ liệu.</span>
+                        <span class="en">Delivers ultra-low-cost, fully independent green power to sustain continuous operation for data center clusters.</span>
+                    </p>
+                </div>
+                <div class="syn-card cyan reveal rd2">
+                    <div class="syn-icon">🛡</div>
+                    <div class="tag"><span class="vi">Lá chắn Lượng tử</span><span class="en">Quantum Shield</span></div>
+                    <h3><span class="vi">Trụ Cột C: Forward Edge-AI</span><span class="en">Pillar C: Forward Edge-AI</span></h3>
+                    <p>
+                        <span class="vi">Thiết lập rào chắn mã hóa kháng lượng tử bất khả xâm phạm, bảo vệ tuyệt đối an ninh cho nguồn điện và kho tàng dữ liệu.</span>
+                        <span class="en">Establishes an impenetrable post-quantum cryptographic barrier, absolutely securing both the power grid and the data treasure trove.</span>
+                    </p>
+                </div>
+                <div class="syn-card gold reveal rd3">
+                    <div class="syn-icon">🧠</div>
+                    <div class="tag"><span class="vi">Động cơ Trí tuệ</span><span class="en">Cognitive Engine</span></div>
+                    <h3><span class="vi">Trụ Cột A: Bánh đà AI–Con người</span><span class="en">Pillar A: AI-Human Flywheel</span></h3>
+                    <p>
+                        <span class="vi">Khai thác nguồn điện giá rẻ và an toàn để vận hành cỗ máy nhận thức trí tuệ nhân tạo, sinh ra dòng tiền lợi nhuận để tái đầu tư mở rộng hạ tầng.</span>
+                        <span class="en">Leverages cheap, secure power to run the AI Cognitive Engine, generating massive cash flow to reinvest into expanding infrastructure.</span>
+                    </p>
+                </div>
+            </div>
+            <div class="loop-indicator reveal">
+                <div class="loop-line"></div><div class="loop-sym">∞</div><div class="loop-line"></div>
+            </div>
+        </div>
+    </section>
+    <div class="divider"></div>
+
+    <!-- ═══ TRỤ CỘT A ═══ -->
+    <section class="sec pa" id="pillar-a">
+        <div class="sec-inner">
+            <div class="p-header reveal">
+                <div>
+                    <span class="p-badge">
+                        <span class="vi">Bản Thiết Kế Kỳ Lân</span><span class="en">The Unicorn Blueprint</span>
+                    </span>
+                    <h2>
+                        <span class="vi">Trụ Cột A: Bánh Đà AI–Con Người</span>
+                        <span class="en">Pillar A: AI-Human Flywheel</span>
+                    </h2>
+                    <p class="p-sub">
+                        <span class="vi">Lò Luyện Nhận Thức AI Toàn Cầu</span>
+                        <span class="en">The Global AI Cognitive Furnace</span>
+                    </p>
+                    <p class="p-conf">
+                        <span class="vi">Bản Cáo Bạch Chiến Lược — Tối Mật</span>
+                        <span class="en">Strategic Whitepaper — Confidential</span>
+                    </p>
+                </div>
+                <img src="./assets/pillar_a.jpg" alt="AI Human Interaction" class="p-hero-img">
+            </div>
+
+            <div class="p-narrative reveal">
+                <span class="vi">"Chúng ta không xây dựng một công ty gia công phần mềm. Chúng ta đang kiến tạo một <strong>Cỗ máy Nhận thức</strong> có khả năng bành trướng cấp số nhân. Bằng cách nâng cấp trí tuệ nhân tạo cho hàng chục ngàn chuyên gia cấp cao ở mọi ngành nghề công nghệ sâu — Tài chính định lượng, Công nghệ sinh học, Vật liệu tiên tiến, Cơ khí chính xác — Trinity nắm giữ kho tàng dữ liệu chuyên ngành mà mọi phòng thí nghiệm AI hàng đầu tại Thung lũng Silicon đều khao khát."</span>
+                <span class="en">"We are not building a software outsourcing firm. We are constructing a <strong>Cognitive Engine</strong> capable of exponential expansion. By upskilling tens of thousands of senior professionals across every Deep Tech vertical — quantitative finance, biotechnology, advanced materials, precision engineering — Trinity controls the domain-specific data treasure that every Frontier AI Lab in Silicon Valley craves."</span>
+            </div>
+
+            <div class="blk reveal">
+                <div class="blk-head">
+                    <span class="blk-num">01</span>
+                    <h3><span class="vi">ADN của một Kỳ Lân — Tính khả mở cấp số nhân</span><span class="en">Unicorn DNA — Hyper-Scalability</span></h3>
+                </div>
+                <p class="blk-desc">
+                    <span class="vi">Trụ cột A mang đặc tính của một Kỳ Lân thực thụ: <strong>biên lợi nhuận gộp bùng nổ</strong> và <strong>hiệu ứng mạng lưới</strong>. Vũ khí bí mật không chỉ là sinh viên, mà là tệp chuyên gia cấp cao và nhà khoa học.</span>
+                    <span class="en">Pillar A carries the DNA of a true Unicorn: <strong>explosive gross margins</strong> and <strong>powerful Network Effects</strong>. The secret weapon is not students — it's the pool of Senior Professionals and Scientists.</span>
+                </p>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-num">01</div>
+                        <h4><span class="vi">Siêu Phễu Giáo dục Công nghệ</span><span class="en">EdTech Super-Funnel</span></h4>
+                        <p>
+                            <span class="vi">Mở các khóa đào tạo ứng dụng AI thực chiến cho hàng vạn chuyên gia tài chính, kỹ sư cơ điện tử, nhà nghiên cứu công nghệ sinh học và kỹ sư vật liệu Nano.</span>
+                            <span class="en">Launch hands-on AI training courses for tens of thousands of finance professionals, mechatronics engineers, biotech researchers, and nanotechnology engineers.</span>
+                        </p>
+                    </div>
+                    <div class="step">
+                        <div class="step-num">02</div>
+                        <h4><span class="vi">Lõi Lọc AI Tàn Nhẫn</span><span class="en">Ruthless AI Filtration Core</span></h4>
+                        <p>
+                            <span class="vi">Hệ thống AI tự động phân tích quá trình học, đo lường năng lực chuyên môn và tư duy logic, lọc ra 5% chuyên gia đầu ngành xuất sắc nhất.</span>
+                            <span class="en">An AI system automatically analyzes the learning process, measures expertise and logical thinking, filtering out the top 5% Domain Experts.</span>
+                        </p>
+                    </div>
+                    <div class="step">
+                        <div class="step-num">03</div>
+                        <h4><span class="vi">Mỏ Vàng Huấn luyện AI Chuyên ngành</span><span class="en">The Domain-Specific RLHF Gold Mine</span></h4>
+                        <p>
+                            <span class="vi">Nhóm chuyên gia quay lại huấn luyện AI bằng phản hồi con người (RLHF) ở cấp độ công nghệ sâu. Dữ liệu cấp chuyên gia này được bán cho thị trường Mỹ với giá siêu ngạch.</span>
+                            <span class="en">These experts return to train AI via RLHF at the Deep Tech level. Expert-level data is sold to the US market at premium rates.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="blk reveal">
+                <div class="blk-head">
+                    <span class="blk-num">02</span>
+                    <h3><span class="vi">Lợi Nhuận Bất Đối Xứng</span><span class="en">Asymmetric Economics</span></h3>
+                </div>
+                <p class="blk-desc">
+                    <span class="vi">Bản chất của Kỳ Lân nằm ở việc khai thác chênh lệch địa lý ở quy mô công nghiệp.</span>
+                    <span class="en">The Unicorn's essence lies in exploiting Geo-Arbitrage at industrial scale.</span>
+                </p>
+                <div class="metrics">
+                    <div class="met">
+                        <div class="met-val">~$0</div>
+                        <div class="met-lbl"><span class="vi">Chi phí thu hút khách hàng</span><span class="en">Customer Acquisition Cost</span></div>
+                    </div>
+                    <div class="met">
+                        <div class="met-val">60-80%</div>
+                        <div class="met-lbl"><span class="vi">Biên lợi nhuận gộp</span><span class="en">Gross Margin</span></div>
+                    </div>
+                    <div class="met">
+                        <div class="met-val">∞</div>
+                        <div class="met-lbl"><span class="vi">Khả năng mở rộng</span><span class="en">Scalability</span></div>
+                    </div>
+                </div>
+                <div class="tbl-wrap">
+                    <table>
+                        <thead>
+                            <tr class="vi"><th>Nền tảng đối thủ</th><th>Định giá</th><th>Lỗ hổng tại Việt Nam</th><th>Giải pháp đánh chặn của Trinity</th></tr>
+                            <tr class="en"><th>Competing Platform</th><th>Valuation</th><th>Vietnam Gap</th><th>Trinity's Counter-Strike</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Scale AI (Outlier)</strong></td>
+                                <td>14 tỷ USD</td>
+                                <td><span class="vi">Trả thẳng 16–33 USD/giờ cho lao động tự do Việt Nam để huấn luyện mô hình ngôn ngữ lớn.</span><span class="en">Paying $16–$33/hr directly to VN freelancers to train LLMs.</span></td>
+                                <td><span class="vi">Dùng nền tảng giáo dục công nghệ gom tệp kỹ sư nội địa trước khi Scale AI kịp tiếp cận, hưởng trọn chênh lệch.</span><span class="en">Use the EdTech platform to aggregate the domestic engineer pool before Scale AI can reach them.</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Mercor</strong></td>
+                                <td><span class="vi">Kỳ Lân tiềm năng</span><span class="en">Potential Unicorn</span></td>
+                                <td><span class="vi">Tuyển chuyên gia Việt Nam với 12–16 USD/giờ.</span><span class="en">Recruiting VN experts at $12–$16/hr.</span></td>
+                                <td><span class="vi">Cung cấp mô hình đội ngũ chuyên trách, đè bẹp đối thủ về tính tổ chức.</span><span class="en">Offer Dedicated Squads that crush Mercor on organizational depth.</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="vi"><strong>Gia công truyền thống</strong></span><span class="en"><strong>Traditional B2B Outsourcing</strong></span></td>
+                                <td><span class="vi">Tuyển dụng chậm</span><span class="en">Slow hiring</span></td>
+                                <td><span class="vi">Trả lương cứng, gánh chi phí vận hành khổng lồ.</span><span class="en">Fixed salaries with massive overhead costs.</span></td>
+                                <td><span class="vi">Mô hình kinh tế tự do phi tập trung, không cần vốn cố định.</span><span class="en">Decentralized Gig-Economy model. Zero-CapEx.</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="blk reveal">
+                <div class="blk-head">
+                    <span class="blk-num">03</span>
+                    <h3><span class="vi">Tầm Nhìn Toàn Cầu — Lộ Trình Siêu Kỳ Lân</span><span class="en">Global Vision — Path to Decacorn</span></h3>
+                </div>
+                <p class="blk-desc">
+                    <span class="vi">Nhờ ổn định chính trị tuyệt đối và vị thế trung lập, Việt Nam đang đứng trước cơ hội trở thành "Thụy Sĩ của Châu Á" — trung tâm dữ liệu, AI và tài chính an toàn nhất thế giới.</span>
+                    <span class="en">With absolute political stability and a neutral stance, Vietnam is poised to become "The Switzerland of Asia" — the world's safest AI and financial hub.</span>
+                </p>
+                <ul class="roadmap">
+                    <li class="vi"><strong>Giai đoạn Tích lũy:</strong> Hợp tác với các viện nghiên cứu khoa học, hiệp hội nghề nghiệp (Y sinh, Cơ khí, Vật liệu Nano) để phổ cập AI. Thu gom tệp chuyên gia đầu ngành xuất sắc nhất quốc gia.</li>
+                    <li class="en"><strong>Accumulation Phase:</strong> Partner with research institutes and professional associations to popularize AI. Aggregate the nation's finest Domain Experts.</li>
+                    <li class="vi"><strong>Giai đoạn Gọi vốn Thế giới:</strong> Dùng sự ổn định chính trị và nguồn năng lượng xanh (BESS) làm nam châm thu hút các quỹ đầu tư quốc tế từ Mỹ, Châu Âu, Trung Đông.</li>
+                    <li class="en"><strong>Global Fundraising:</strong> Use political stability and green energy (BESS) as magnets to attract international investment funds from the US, Europe, and the Middle East.</li>
+                    <li class="vi"><strong>Giai đoạn Siêu Kỳ Lân:</strong> Trở thành cảng trung chuyển chất xám chuyên ngành công nghệ sâu của thế giới. Mọi phòng thí nghiệm AI tiên phong muốn giải quyết nghiệp vụ khoa học phức tạp đều phải đi qua trạm kiểm soát dữ liệu của Trinity.</li>
+                    <li class="en"><strong>Decacorn Phase:</strong> Become the world's Deep Tech brain transit hub. Any Frontier AI Lab tackling complex scientific tasks must pass through Trinity's data tollbooth.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <div class="divider"></div>
+
+    <!-- ═══ TRỤ CỘT B ═══ -->
+    <section class="sec pb" id="pillar-b">
+        <div class="sec-inner">
+            <div class="p-header reveal">
+                <div>
+                    <span class="p-badge">
+                        <span class="vi">Hào Phòng Thủ Tối Thượng</span><span class="en">The Sovereign Moat</span>
+                    </span>
+                    <h2>
+                        <span class="vi">Trụ Cột B: Năng Lượng BESS</span>
+                        <span class="en">Pillar B: BESS Energy</span>
+                    </h2>
+                    <p class="p-sub">
+                        <span class="vi">Nền Tảng Vật Lý Của Hầm Trú Ẩn Dữ Liệu Toàn Cầu</span>
+                        <span class="en">Physical Foundation of the Global Data Haven</span>
+                    </p>
+                    <p class="p-conf">
+                        <span class="vi">Bản Cáo Bạch Chiến Lược — Tối Mật</span>
+                        <span class="en">Strategic Whitepaper — Confidential</span>
+                    </p>
+                </div>
+                <img src="./assets/pillar_b.jpg" alt="Clean Green Energy" class="p-hero-img">
+            </div>
+
+            <div class="p-narrative reveal">
+                <span class="vi">"Tương lai của AI không nằm ở thuật toán, mà nằm ở <strong>Năng lượng</strong>. Một Quốc gia Kỹ thuật số không thể tồn tại nếu trung tâm dữ liệu bị ngắt điện hoặc bị tin tặc đánh sập. Bằng việc kết hợp hạ tầng lưu trữ năng lượng BESS với năng lượng Hydro, Trinity kiến tạo mạng lưới điện vi mô siêu an toàn, biến Việt Nam thành hầm trú ẩn dữ liệu xanh và vững chắc nhất toàn cầu."</span>
+                <span class="en">"The future of AI is not in algorithms — it's in <strong>Energy</strong>. A Digital Nation cannot exist if its Data Centers lose power or are hacked. By combining BESS infrastructure with Hydrogen power, Trinity builds an AI-Secured Microgrid, transforming Vietnam into the world's greenest and most resilient Data Haven."</span>
+            </div>
+
+            <div class="blk reveal">
+                <div class="blk-head">
+                    <span class="blk-num">01</span>
+                    <h3><span class="vi">Siêu lợi nhuận từ độc quyền hạ tầng</span><span class="en">Hyper-Profits from Infrastructure Monopoly</span></h3>
+                </div>
+                <p class="blk-desc">
+                    <span class="vi">Dự án sở hữu lực kéo thị trường tuyệt đối nhờ vị thế ngoại giao cấp cao và công nghệ lõi của tập đoàn lưu trữ năng lượng hàng đầu thế giới.</span>
+                    <span class="en">The project commands absolute market traction through top-level diplomatic positioning and globally top-tier core technology.</span>
+                </p>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-num">01</div>
+                        <h4><span class="vi">Mảng Chính phủ</span><span class="en">Government (B2G)</span></h4>
+                        <p>
+                            <span class="vi">Cung cấp trạm lưới điện cho EVN để điều tần và gọt đỉnh phụ tải theo Quy hoạch Điện 8. Nguồn thu khổng lồ từ bán phần cứng và hợp đồng bảo trì 20 năm.</span>
+                            <span class="en">Supply grid-scale stations to EVN for frequency regulation and peak shaving under PDP8. Revenue from hardware and 20-year O&M contracts.</span>
+                        </p>
+                    </div>
+                    <div class="step">
+                        <div class="step-num">02</div>
+                        <h4><span class="vi">Mảng Doanh nghiệp — Lưới điện vi mô</span><span class="en">Enterprise (B2B) — Microgrid</span></h4>
+                        <p>
+                            <span class="vi">Mô hình cho thuê năng lượng giúp doanh nghiệp FDI né thuế carbon CBAM. Tích hợp BESS với năng lượng mặt trời và Hydro tạo nguồn điện hoàn toàn độc lập.</span>
+                            <span class="en">Energy-as-a-Service model helps FDI factories dodge the CBAM carbon tax. Integrates BESS + Solar + Hydrogen for fully independent power.</span>
+                        </p>
+                    </div>
+                    <div class="step">
+                        <div class="step-num">03</div>
+                        <h4><span class="vi">Hiệp lực Tiêu dùng, AI và Bảo mật</span><span class="en">B2C Synergy, AI & Security</span></h4>
+                        <p>
+                            <span class="vi">Trạm sạc cấp điện cho xe siêu sang Isotta Fraschini. Nhúng giải pháp mã hóa lượng tử Forward Edge-AI vào BESS để cấp nguồn bất khả xâm phạm cho trung tâm dữ liệu AI.</span>
+                            <span class="en">Charging stations for Isotta Fraschini ultra-luxury EVs. Embeds Forward Edge-AI quantum encryption into BESS powering AI Data Centers.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="blk reveal">
+                <div class="blk-head">
+                    <span class="blk-num">02</span>
+                    <h3><span class="vi">Lực kéo vĩ mô</span><span class="en">Macro Tailwinds</span></h3>
+                </div>
+                <p class="blk-desc">
+                    <span class="vi">Ba quả bom hẹn giờ của nền kinh tế đang ép các tập đoàn toàn cầu phải quỳ gối trước giải pháp BESS của Trinity.</span>
+                    <span class="en">Three economic time bombs are forcing global corporations to kneel before Trinity's BESS solution.</span>
+                </p>
+                <div class="metrics">
+                    <div class="met">
+                        <div class="met-val"><span class="vi">Quy hoạch Điện 8</span><span class="en">PDP8</span></div>
+                        <div class="met-lbl"><span class="vi">Bắt buộc EVN triển khai BESS</span><span class="en">Mandates EVN to deploy BESS</span></div>
+                    </div>
+                    <div class="met">
+                        <div class="met-val"><span class="vi">Thuế Carbon</span><span class="en">CBAM</span></div>
+                        <div class="met-lbl"><span class="vi">Doanh nghiệp xuất khẩu phải dùng điện sạch</span><span class="en">Exporters must achieve RE100</span></div>
+                    </div>
+                    <div class="met">
+                        <div class="met-val"><span class="vi">Thiếu Điện</span><span class="en">Blackouts</span></div>
+                        <div class="met-lbl"><span class="vi">FDI thiệt hại hàng triệu USD mỗi năm</span><span class="en">FDI loses millions of USD annually</span></div>
+                    </div>
+                </div>
+                <div class="tbl-wrap">
+                    <table>
+                        <thead>
+                            <tr class="vi"><th>Giải pháp năng lượng</th><th>Chi phí cho doanh nghiệp</th><th>Tính ổn định và chống thuế carbon</th><th>Biên lợi nhuận của Trinity</th></tr>
+                            <tr class="en"><th>Energy Solution</th><th>Cost for FDI</th><th>Stability & CBAM Compliance</th><th>Trinity's Margin</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="vi"><strong>Lưới điện EVN truyền thống</strong></span><span class="en"><strong>Traditional EVN Grid</strong></span></td>
+                                <td><span class="vi">Không tốn phí đầu tư</span><span class="en">No upfront cost</span></td>
+                                <td><span class="vi">Điện than — bị Châu Âu đánh thuế nặng. Mất điện luân phiên thường xuyên.</span><span class="en">Coal power — heavy EU carbon taxes. Frequent rolling blackouts.</span></td>
+                                <td><span class="vi">Không áp dụng (lãnh địa EVN)</span><span class="en">N/A (EVN territory)</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="vi"><strong>Điện mặt trời mái nhà (không có pin lưu trữ)</strong></span><span class="en"><strong>Rooftop Solar (No Battery)</strong></span></td>
+                                <td><span class="vi">Vài chục tỷ VNĐ</span><span class="en">Tens of billions VND</span></td>
+                                <td><span class="vi">Ban đêm mất điện. Vẫn phải dùng điện than ca đêm.</span><span class="en">No power at night. Still relies on coal after dark.</span></td>
+                                <td><span class="vi">Không áp dụng (cạnh tranh gay gắt)</span><span class="en">N/A (Fierce competition)</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong><span class="vi">Trinity BESS (Cho thuê năng lượng)</span><span class="en">Trinity BESS (EaaS)</span></strong></td>
+                                <td><strong><span class="vi">0 đồng (thuê pin, trả phí hàng tháng)</span><span class="en">$0 (Lease batteries, pay monthly)</span></strong></td>
+                                <td><span class="vi">Xanh 100%. Ổn định 24/7. Tránh hoàn toàn thuế carbon.</span><span class="en">100% Green. 24/7 stable. Full CBAM compliance.</span></td>
+                                <td><strong><span class="vi">Siêu ngạch. Hợp đồng dòng tiền ổn định 10–20 năm.</span><span class="en">Premium. 10-20 year contracts.</span></strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="blk reveal">
+                <div class="blk-head">
+                    <span class="blk-num">03</span>
+                    <h3><span class="vi">Tầm nhìn thống trị — Hào phòng thủ tối thượng</span><span class="en">Domination Roadmap — The Sovereign Moat</span></h3>
+                </div>
+                <ul class="roadmap">
+                    <li class="vi"><strong>Giai đoạn Pháp lý:</strong> Vận động hành lang cấp cao đệ trình Bộ Công Thương phê duyệt cơ chế thử nghiệm BESS hòa lưới tư nhân.</li>
+                    <li class="en"><strong>Regulatory Phase:</strong> High-level lobbying to submit to MOIT for approval of a private grid-connected BESS pilot mechanism.</li>
+                    <li class="vi"><strong>Giai đoạn Phủ sóng doanh nghiệp FDI:</strong> Khởi động chiến dịch cho thuê năng lượng tại các đại khu công nghiệp (DEEP C, VSIP). Khóa chặt các tập đoàn lớn bằng hợp đồng thuê pin dài hạn.</li>
+                    <li class="en"><strong>FDI Blitz:</strong> Launch Energy-as-a-Service across DEEP C, VSIP industrial zones. Lock in major corporations with long-term battery lease contracts.</li>
+                    <li class="vi"><strong>Giai đoạn Hầm trú ẩn toàn cầu:</strong> Khi hạ tầng năng lượng xanh đã phủ kín, Việt Nam chính thức trở thành trung tâm thu hút vốn toàn cầu để xây dựng trung tâm dữ liệu AI và sàn giao dịch tài chính lượng tử.</li>
+                    <li class="en"><strong>Global Safe Haven:</strong> When green energy infrastructure is fully deployed, Vietnam officially becomes the global capital hub for building AI Data Centers and quantum financial exchanges.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <div class="divider"></div>
+
+    <!-- ═══ TRỤ CỘT C ═══ -->
+    <section class="sec pc" id="pillar-c">
+        <div class="sec-inner">
+            <div class="p-header reveal">
+                <div>
+                    <span class="p-badge">
+                        <span class="vi">Hầm Vàng Tối Thượng</span><span class="en">The Ultimate Vault</span>
+                    </span>
+                    <h2>
+                        <span class="vi">Trụ Cột C: Forward Edge-AI</span>
+                        <span class="en">Pillar C: Forward Edge-AI</span>
+                    </h2>
+                    <p class="p-sub">
+                        <span class="vi">Lá Chắn Lượng Tử Của Quốc Gia Kỹ Thuật Số</span>
+                        <span class="en">The Quantum Shield of the Digital Nation</span>
+                    </p>
+                    <p class="p-conf">
+                        <span class="vi">Bản Cáo Bạch Chiến Lược — Tối Mật</span>
+                        <span class="en">Strategic Whitepaper — Confidential</span>
+                    </p>
+                </div>
+                <img src="./assets/pillar_c.jpg" alt="Post Quantum Cryptography" class="p-hero-img">
+            </div>
+
+            <div class="p-narrative reveal">
+                <span class="vi">"Nếu Trụ Cột A là động cơ tạo tài sản và Trụ Cột B là nền tảng vật lý, thì Trụ Cột C chính là <strong>cánh cửa hầm vàng</strong>. Sẽ vô nghĩa nếu xây dựng các trung tâm dữ liệu AI khổng lồ hay lưới điện thông minh trị giá hàng tỷ đô la để rồi bị tin tặc đánh sập trong 3 giây vào ngày máy tính lượng tử ra đời. Bằng việc độc quyền công nghệ <strong>mã hóa kháng lượng tử</strong> và <strong>lưới điện vi mô bảo mật bằng AI</strong>, chúng ta đang bán 'sự sống còn' cho toàn bộ hạ tầng kỹ thuật số, năng lượng và tài chính."</span>
+                <span class="en">"If Pillar A is the wealth-generating engine and Pillar B is the physical foundation, then Pillar C is <strong>The Vault Door</strong>. It is meaningless to build billion-dollar AI Data Centers or smart grids only to have them hacked in 3 seconds on Q-Day. By monopolizing <strong>Post-Quantum Cryptography (PQC)</strong> and the <strong>AI-Secured Microgrid</strong>, we are selling 'Survival' to the entire digital infrastructure."</span>
+            </div>
+
+            <div class="blk reveal">
+                <div class="blk-head">
+                    <span class="blk-num">01</span>
+                    <h3><span class="vi">Siêu lợi nhuận từ bán bản quyền phần mềm</span><span class="en">Hyper-Margins — SaaS & Licensing</span></h3>
+                </div>
+                <p class="blk-desc">
+                    <span class="vi">Đây là mảng công nghệ sâu có biên lợi nhuận cao nhất trong cả 3 trụ cột. Nhờ bản chất cung cấp qua giao diện lập trình (API) và phần mềm dịch vụ, khả năng nhân bản là vô hạn mà không tốn chi phí sản xuất vật lý.</span>
+                    <span class="en">The highest-margin Deep-Tech vertical across all three pillars. As an API/SaaS product, scaling is limitless with zero physical production costs.</span>
+                </p>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-num">🏦</div>
+                        <h4><span class="vi">Bảo mật Tài chính và AI</span><span class="en">Finance & AI Security (B2B)</span></h4>
+                        <p>
+                            <span class="vi">Cung cấp thư viện mã hóa Isidore Quantum® dạng API cho hệ thống ngân hàng. Mã hóa dữ liệu huấn luyện AI của Trụ Cột A, chống đánh cắp sở hữu trí tuệ trị giá hàng tỷ đô.</span>
+                            <span class="en">Deliver the Isidore Quantum® encryption library as an API for banking systems. Encrypt Pillar A's AI training data to prevent billion-dollar IP theft.</span>
+                        </p>
+                    </div>
+                    <div class="step">
+                        <div class="step-num">🔋</div>
+                        <h4><span class="vi">Bảo mật lưới điện vi mô</span><span class="en">Microgrid Security (Pillar B)</span></h4>
+                        <p>
+                            <span class="vi">Nhúng chip bảo mật vào các trạm lưu trữ BESS và hệ thống năng lượng Hydro, đảm bảo không thể bị đánh sập từ xa, bảo vệ nguồn điện cho trung tâm dữ liệu AI.</span>
+                            <span class="en">Embed security chips into BESS stations and Hydrogen energy systems. Ensure they cannot be remotely compromised, protecting power for AI Data Centers.</span>
+                        </p>
+                    </div>
+                    <div class="step">
+                        <div class="step-num">🛰</div>
+                        <h4><span class="vi">Viễn thông vệ tinh quỹ đạo thấp</span><span class="en">LEO Satellite Communications</span></h4>
+                        <p>
+                            <span class="vi">Tích hợp mã hóa kháng lượng tử vào truyền dẫn vệ tinh quỹ đạo thấp, tạo ra mạng lưới liên lạc song song, bất khả xâm phạm, tách biệt hoàn toàn khỏi hệ thống cáp quang biển dễ bị đứt gãy.</span>
+                            <span class="en">Integrate PQC into LEO satellite transmissions. Create a parallel, impenetrable communications network, completely separate from vulnerable undersea fiber cables.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="blk reveal">
+                <div class="blk-head">
+                    <span class="blk-num">02</span>
+                    <h3><span class="vi">Khai thác nỗi đau thị trường</span><span class="en">Market Pain Points</span></h3>
+                </div>
+                <p class="blk-desc">
+                    <span class="vi">Khách hàng mục tiêu đang rơi vào trạng thái hoảng loạn trước hai mối đe dọa không thể đảo ngược:</span>
+                    <span class="en">Target customers are panicking before two irreversible threats:</span>
+                </p>
+                <div class="metrics">
+                    <div class="met">
+                        <div class="met-val"><span class="vi">Ngày Q</span><span class="en">Q-Day</span></div>
+                        <div class="met-lbl"><span class="vi">Máy tính lượng tử phá vỡ mật mã RSA</span><span class="en">Quantum computers break RSA encryption</span></div>
+                    </div>
+                    <div class="met">
+                        <div class="met-val"><span class="vi">Gom–Giải mã</span><span class="en">SNDL</span></div>
+                        <div class="met-lbl"><span class="vi">Tin tặc gom dữ liệu hôm nay, chờ giải mã ngày mai</span><span class="en">Store Now, Decrypt Later</span></div>
+                    </div>
+                    <div class="met">
+                        <div class="met-val">80-90%</div>
+                        <div class="met-lbl"><span class="vi">Biên lợi nhuận bản quyền phần mềm</span><span class="en">SaaS Licensing Margin</span></div>
+                    </div>
+                </div>
+                <div class="tbl-wrap">
+                    <table>
+                        <thead>
+                            <tr class="vi"><th>Bối cảnh bảo mật</th><th>Rủi ro đối với khách hàng</th><th>Giải pháp đánh chặn của Trinity</th></tr>
+                            <tr class="en"><th>Security Landscape</th><th>Customer Risk</th><th>Trinity's PQC Solution</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>RSA / ECC</strong></td>
+                                <td><span class="vi">Gần như chắc chắn sẽ bị máy tính lượng tử bẻ khóa trong 3–5 năm tới. Rủi ro mất trắng dữ liệu toàn cầu.</span><span class="en">Near-certain to be cracked by quantum computers in 3–5 years. Risk of global data wipeout.</span></td>
+                                <td><span class="vi">Sử dụng thuật toán toán học đa chiều phức tạp, vô hiệu hóa hoàn toàn năng lực tính toán của máy tính lượng tử.</span><span class="en">Lattice-based algorithms that completely neutralize quantum computing power.</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="vi"><strong>Lệnh bắt buộc từ NIST (Mỹ)</strong></span><span class="en"><strong>NIST Mandate (US)</strong></span></td>
+                                <td><span class="vi">Chính phủ Mỹ đã ra lệnh bắt buộc nâng cấp mã hóa kháng lượng tử. Làn sóng này sẽ sớm tràn sang Châu Á dưới dạng luật định.</span><span class="en">The US government mandates PQC upgrade. This wave will sweep across Asia as regulation.</span></td>
+                                <td><span class="vi">Đi trước một bước, đóng gói giải pháp theo chuẩn Mỹ, sẵn sàng tích hợp ngay cho các ngân hàng trung ương khu vực Châu Á.</span><span class="en">Stay one step ahead. Pre-packaged US-Grade tech ready for Asian central banks.</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="vi"><strong>Phụ thuộc cáp quang biển</strong></span><span class="en"><strong>Submarine Cable Dependency</strong></span></td>
+                                <td><span class="vi">Dễ bị cắt đứt vật lý hoặc nghe lén tại các trạm trung chuyển đại dương.</span><span class="en">Vulnerable to physical cuts or eavesdropping at ocean relay stations.</span></td>
+                                <td><span class="vi">Truyền dữ liệu mã hóa qua vệ tinh quỹ đạo thấp, đảm bảo chủ quyền dữ liệu tuyệt đối từ không gian.</span><span class="en">Encrypted data via LEO satellite — absolute data sovereignty from space.</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="blk reveal">
+                <div class="blk-head">
+                    <span class="blk-num">03</span>
+                    <h3><span class="vi">Chiến lược chiếm lĩnh hạ tầng</span><span class="en">Infrastructure Capture Strategy — The Ultimate Moat</span></h3>
+                </div>
+                <ul class="roadmap">
+                    <li class="vi"><strong>Giai đoạn Pháp lý và Tiêu chuẩn:</strong> Làm việc trực tiếp với Cục An toàn Thông tin quốc gia. Đẩy mã hóa kháng lượng tử vào danh mục bắt buộc đối với hệ thống lõi của ngân hàng, viễn thông và trung tâm dữ liệu AI.</li>
+                    <li class="en"><strong>Regulatory & Standards:</strong> Work directly with the National Cybersecurity Agency. Push PQC into the mandatory list for core systems of banks, telecoms, and AI Data Centers.</li>
+                    <li class="vi"><strong>Giai đoạn Cấy ghép:</strong> Tặng gói thử nghiệm 30 ngày cho các trạm năng lượng, viễn thông và ngân hàng tiên phong. Khi hệ thống đã nhúng sâu API của chúng ta, sự phụ thuộc là tuyệt đối.</li>
+                    <li class="en"><strong>Implantation Phase (Trojan Horse PoC):</strong> Offer a 30-day free Proof of Concept to energy stations, telecoms, and pioneer banks. Once the API is deeply embedded, dependency is absolute.</li>
+                    <li class="vi"><strong>Giai đoạn Thương mại hóa độc quyền:</strong> Dùng các bài học thành công thực tế để trở thành nền tảng bảo mật độc tôn. Thu phí bản quyền định kỳ trên mọi điểm cuối — từ lưới điện vi mô, luồng dữ liệu AI cho đến giao dịch tài chính.</li>
+                    <li class="en"><strong>Monopoly Commercialization:</strong> Leverage real-world Case Studies to become the dominant security platform. Collect recurring licensing fees across every endpoint — microgrids, AI data flows, and financial transactions.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <div class="divider"></div>
+
+    <!-- ═══ PHỤ LỤC ═══ -->
+    <section class="sec glossary-t" id="glossary">
+        <div class="sec-inner">
+            <div class="sec-header reveal">
+                <span class="sec-label"><span class="vi">Phụ Lục</span><span class="en">Appendix</span></span>
+                <h2><span class="vi">Thuật Ngữ và Chú Giải</span><span class="en">Glossary & Key Terms</span></h2>
+            </div>
+            <div class="tbl-wrap reveal">
+                <table>
+                    <thead>
+                        <tr class="vi"><th style="width:30%">Thuật ngữ</th><th>Giải nghĩa</th></tr>
+                        <tr class="en"><th style="width:30%">Term</th><th>Definition</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="vi"><strong>Quốc gia Kỹ thuật số</strong></span><span class="en"><strong>Digital Nation</strong></span></td>
+                            <td><span class="vi">Hệ sinh thái khép kín có đầy đủ hạ tầng vật lý (điện lực), an ninh (bảo mật lượng tử) và tri thức (trí tuệ nhân tạo) hoạt động độc lập và tự chủ như một quốc gia.</span><span class="en">A closed-loop ecosystem with complete physical infrastructure (power), security (quantum cryptography), and intelligence (AI), operating independently like a sovereign nation.</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="vi"><strong>Bộ ba Thách thức</strong></span><span class="en"><strong>Digital Trilemma</strong></span></td>
+                            <td><span class="vi">Vấn đề nan giải toàn cầu khi phát triển công nghệ: làm sao cân bằng và đạt được đồng thời ba yếu tố — năng lượng sạch, bảo mật tuyệt đối và phát triển trí tuệ nhân tạo đột phá.</span><span class="en">The global challenge of simultaneously achieving clean energy, absolute security, and breakthrough AI development.</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="vi"><strong>Trí tuệ Nhân tạo (AI)</strong></span><span class="en"><strong>Artificial Intelligence (AI)</strong></span></td>
+                            <td><span class="vi">Hệ thống máy tính mô phỏng nhận thức con người. Trong ngữ cảnh dự án, tập trung vào xây dựng mô hình máy học và dữ liệu huấn luyện sâu chuyên ngành công nghệ cao.</span><span class="en">Computer systems that simulate human cognition. In this project context, focused on building machine learning models and Deep Tech domain-specific training data.</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>RLHF</strong></td>
+                            <td><span class="vi">Học tăng cường từ phản hồi con người — phương pháp huấn luyện trí tuệ nhân tạo bằng cách sử dụng các chuyên gia đầu ngành để đánh giá và chỉnh sửa kết quả của máy học.</span><span class="en">Reinforcement Learning from Human Feedback — training AI by having domain experts evaluate and correct machine learning outputs.</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>BESS</strong></td>
+                            <td><span class="vi">Hệ thống lưu trữ năng lượng bằng pin — chìa khóa để lưu trữ điện xanh và cung cấp nguồn điện ổn định suốt ngày đêm, khắc phục nhược điểm phụ thuộc thời tiết của năng lượng tái tạo.</span><span class="en">Battery Energy Storage System — the key to storing green power and delivering stable 24/7 supply, overcoming the weather-dependency weakness of renewables.</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="vi"><strong>Mã hóa kháng lượng tử (PQC)</strong></span><span class="en"><strong>Post-Quantum Cryptography (PQC)</strong></span></td>
+                            <td><span class="vi">Chuẩn bảo mật thế hệ mới sử dụng các thuật toán toán học phức tạp nhằm vô hiệu hóa khả năng bẻ khóa của siêu máy tính lượng tử trong tương lai.</span><span class="en">Next-gen security standard using complex mathematical algorithms to neutralize the cracking power of future quantum supercomputers.</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>© 2026 Project Trinity — <span class="vi">Bản Cáo Bạch Quốc Gia Kỹ Thuật Số — Bản Quyền Đã Được Bảo Hộ — Tối Mật</span><span class="en">Digital Nation Blueprint — All Rights Reserved — Strictly Confidential</span></p>
+    </footer>
+
+    <script>
+        function setLang(l) {
+            document.documentElement.lang = l;
+            document.getElementById('btnVI').classList.toggle('active', l === 'vi');
+            document.getElementById('btnEN').classList.toggle('active', l === 'en');
+            try { localStorage.setItem('trinity-lang', l); } catch(e) {}
+        }
+        (function() { try { if (localStorage.getItem('trinity-lang') === 'en') setLang('en'); } catch(e) {} })();
+
+        function toggleDrawer() {
+            var d = document.getElementById('drawer'), b = document.getElementById('burger');
+            var o = d.classList.toggle('open'); b.classList.toggle('open', o);
+            document.body.style.overflow = o ? 'hidden' : '';
+        }
+        function closeDrawer() {
+            document.getElementById('drawer').classList.remove('open');
+            document.getElementById('burger').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        (function() {
+            var c = document.getElementById('constellation');
+            if (!c) return;
+            var ctx = c.getContext('2d'), ps = [], w, h, run = true, mob = window.innerWidth < 768;
+            function resize() { w = c.width = c.parentElement.offsetWidth; h = c.height = c.parentElement.offsetHeight; }
+            function init() {
+                resize(); ps = [];
+                var n = Math.min(Math.floor((w * h) / (mob ? 20000 : 12000)), mob ? 40 : 80);
+                for (var i = 0; i < n; i++) ps.push({ x: Math.random()*w, y: Math.random()*h, vx: (Math.random()-0.5)*0.25, vy: (Math.random()-0.5)*0.25, r: Math.random()*1.4+0.4, a: Math.random()*0.5+0.15 });
+            }
+            function draw() {
+                if (!run) return; ctx.clearRect(0,0,w,h); var md = mob ? 90 : 120;
+                for (var i = 0; i < ps.length; i++) for (var j = i+1; j < ps.length; j++) {
+                    var dx = ps[i].x-ps[j].x, dy = ps[i].y-ps[j].y, d = Math.sqrt(dx*dx+dy*dy);
+                    if (d < md) { ctx.beginPath(); ctx.strokeStyle = 'rgba(201,168,76,'+(0.06*(1-d/md))+')'; ctx.lineWidth = 0.5; ctx.moveTo(ps[i].x,ps[i].y); ctx.lineTo(ps[j].x,ps[j].y); ctx.stroke(); }
+                }
+                for (var k = 0; k < ps.length; k++) { var p = ps[k]; ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fillStyle = 'rgba(201,168,76,'+p.a+')'; ctx.fill(); p.x += p.vx; p.y += p.vy; if (p.x<0||p.x>w) p.vx*=-1; if (p.y<0||p.y>h) p.vy*=-1; }
+                requestAnimationFrame(draw);
+            }
+            document.addEventListener('visibilitychange', function() { if (document.hidden) run = false; else { run = true; draw(); } });
+            window.addEventListener('resize', resize); init(); draw();
+        })();
+
+        (function() {
+            var els = document.querySelectorAll('.reveal');
+            var obs = new IntersectionObserver(function(es) { es.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('vis'); }); }, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
+            els.forEach(function(el) { obs.observe(el); });
+        })();
+
+        (function() {
+            var nav = document.getElementById('navbar'), ly = 0;
+            window.addEventListener('scroll', function() { var y = window.scrollY; nav.classList.toggle('hidden', y > ly && y > 160); ly = y; }, { passive: true });
+        })();
+
+        (function() {
+            var secs = document.querySelectorAll('[id]'), links = document.querySelectorAll('.nav-links a, .mobile-drawer a');
+            var ids = new Set(); links.forEach(function(a) { var h = a.getAttribute('href'); if (h && h[0]==='#') ids.add(h.slice(1)); });
+            var obs = new IntersectionObserver(function(es) {
+                es.forEach(function(e) { if (e.isIntersecting && ids.has(e.target.id)) links.forEach(function(l) { l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id); }); });
+            }, { threshold: 0.2 });
+            secs.forEach(function(s) { if (ids.has(s.id)) obs.observe(s); });
+        })();
+    </script>
+</body>
+</html>
